@@ -1,3 +1,8 @@
+//Author: Benoit Coville
+//email : covillebenoit@gmail.com
+//Student number : c3316165
+//Course: SENG1120
+
 #include "LinkedList.h"
 #include <iostream>
 
