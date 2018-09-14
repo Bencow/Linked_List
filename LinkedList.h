@@ -50,6 +50,15 @@ public:
   int count(std::string name);
   //Pre condition : Student name
   //Post condition : Return the number of student whose name is the input string
+
+  void order();
+  void swapNodes(Node* v1, Node* v2);
+  //Pre condition : v2 must be just after v1
+  //Post condition :
+  void display_debug();
+  void display_pointer_node(Node* pt);
+
+
 };
 
 ostream& operator<<(ostream& out, const LinkedList& list);

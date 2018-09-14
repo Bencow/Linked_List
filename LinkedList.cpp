@@ -111,8 +111,8 @@ bool LinkedList::remove_target(Node* target)
   {
     if(target == head)
     {
-      head = head->get_next();
       head->get_next()->set_previous(NULL);
+      head = head->get_next();
     }
     else if(target == tail)
     {
@@ -170,6 +170,100 @@ int LinkedList::count(std::string name)
   }
   return occurence;
 }
+
+void LinkedList::swapNodes(Node* v1, Node* v2)//note : v1 is before v2
+{
+  if(v1 != head)
+  {
+    v1->get_previous()->set_next(v2);
+  }
+  else//v1 is the head
+  {
+    head = v2;
+  }
+  if(v2 != tail )
+  {
+    v2->get_next()->set_previous(v1);
+  }
+  else//v2 is the tail
+  {
+    tail = v1;
+  }
+
+  Node *prev = v1->get_previous();
+  Node *next = v2->get_next();
+
+  v1->set_next(next);
+  v1->set_previous(v2);
+
+  v2->set_previous(prev);
+  v2->set_next(v1);
+}
+
+void LinkedList::order()
+{
+  for(int i = 0 ; i < size ; ++i)
+  {
+    current = head;
+
+    while(current != tail)
+    {
+      //if the current node is higher than the next one
+      if(current->get_data().get_name() > current->get_next()->get_data().get_name())
+      {
+        //Swap the two nodes
+        swapNodes(current, current->get_next());
+      }
+      else
+      {
+        current = current->get_next();
+      }
+      //display_debug();
+      //Go to the next
+    }
+  }
+}
+
+void LinkedList::display_debug()
+{
+  Node *current_ = head;
+  while(current_ != NULL)
+  {
+    display_pointer_node(current_->get_previous());
+    display_pointer_node(current_);
+    display_pointer_node(current_->get_next());
+    std::cout << std::endl;
+    current_ = current_->get_next();
+  }
+}
+
+void LinkedList::display_pointer_node(Node* pt)
+{
+  if(pt == NULL)
+  {
+    std::cout << "(NULL)";
+  }
+  else
+  {
+    std::cout << "(" << pt->get_data().get_name() << ")";
+  }
+}
+
+/*
+void LinkedList::order1()
+{
+  Node* min = head;
+  current = head;
+  while(current != tail->get_previous())
+  for(int i = 0 ; i < size ; i++)
+  {
+    for(int j = i ; j < size ; j++)
+    if(min.get_data().get_name() > current)
+      min = current;
+    current = current->next();
+  }
+}
+*/
 
 //Non-member fonctions :
 std::ostream& operator<<(std::ostream& out, const LinkedList& list)

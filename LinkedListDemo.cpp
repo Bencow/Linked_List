@@ -87,11 +87,13 @@ int main()
 	cout << "Number of students named 'Carol': ";
 	cout << (firstList.count("Carol") + secondList.count("Carol")) << endl << endl;
 
-//	cout << "Ordered lists: " << endl;
-//	firstList.order();
-//	secondList.order();
-//	cout << "List 1: " << firstList  << endl;
-//	cout << "List 2: " << secondList << endl << endl;
+  //firstList.display_debug();
+
+	cout << "Ordered lists: " << endl;
+	firstList.order();
+	//secondList.order();
+	cout << "List 1: " << firstList  << endl;
+	cout << "List 2: " << secondList << endl << endl;
 
 	cout << "The program has finished." << endl;
 	return 0;
