@@ -79,14 +79,16 @@ void LinkedList::operator +=(const LinkedList& l2)
 void LinkedList::remove(std::string name)
 {
   bool found = false;
+  Node* temp;
   current = head;
   while (current != NULL)
   {
-    if(name == current->get_data().get_name())
+    temp = current->get_next();
+	if(name == current->get_data().get_name())
     {
-      found = remove_target(current);
+		found = remove_target(current);
     }
-    current = current->get_next();
+	current = temp;
   }
   if(!found)
     cout << "There's no student called " << name << " in this list" << endl;
@@ -126,7 +128,8 @@ bool LinkedList::remove_target(Node* target)
     }
     //Remove the node at the and in all cases when there's more than 1 node
     delete target;
-    target = NULL;
+
+    //target = NULL;
     size--;
     return true;
   }
