@@ -2,7 +2,7 @@
 /******************************/
 //Author: Alex Mendes
 //Course: SENG1120
-//Program Description: This program demonstrates the basic functionality of a linked list that stores student names and scores.
+//Program Description: This program demonstrates the basic functionality of a linked list that stores student names and scores. 
 //It will demo the functions of a basic linked list.
 //The program adds content to a linked list, removes individual nodes, among other functionalities.
 
@@ -10,7 +10,6 @@
 #include <cstdlib>
 #include "LinkedList.h"
 #include "Student.h"
-#include "Node.h"
 using namespace std;
 
 void initialize(LinkedList &l1, LinkedList &l2)
@@ -44,7 +43,7 @@ int main()
 {
     LinkedList firstList;
 	LinkedList secondList;
-
+	
 	initialize(firstList, secondList);
 
 	cout << "Start lists:" << endl;
@@ -57,7 +56,6 @@ int main()
 	cout << "List 2: " << secondList << endl << endl;
 
 	cout << "Removing student 'Alex' from list '1':" << endl;
-  //cout << "size " << firstList.get_size() << endl;
     firstList.remove("Alex");
     cout << "List 1: " << firstList  << endl;
 	cout << "List 2: " << secondList << endl << endl;
@@ -77,21 +75,19 @@ int main()
     secondList.remove("Fred");
     cout << "List 1: " << firstList  << endl;
 	cout << "List 2: " << secondList << endl << endl;
-
+	
 	cout << "Average of list '1': ";
 	cout << firstList.calcAverage() << endl;
-
+	
 	cout << "Average of list '2': ";
 	cout << secondList.calcAverage() << endl << endl;
 
 	cout << "Number of students named 'Carol': ";
 	cout << (firstList.count("Carol") + secondList.count("Carol")) << endl << endl;
 
-  //firstList.display_debug();
-
 	cout << "Ordered lists: " << endl;
 	firstList.order();
-	//secondList.order();
+	secondList.order();
 	cout << "List 1: " << firstList  << endl;
 	cout << "List 2: " << secondList << endl << endl;
 
