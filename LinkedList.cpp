@@ -73,7 +73,7 @@ void LinkedList::addToTail(const value_type& entry)
 
 void LinkedList::operator +=(const LinkedList& l2)
 {
-  Node* current = l2.get_head();
+  Node* current = l2.get_head();//how to do that without public get_head ??
   while(current != NULL)
   {
     addToTail(current->get_data());
@@ -278,7 +278,8 @@ std::ostream& operator<<(std::ostream& out, const LinkedList& list)
 {
   //Maybe i will have to change this to not use getter for the head, but i don't
   //know how can i do in another way
-  Node* current = list.get_head();
+  Node* current = list.get_head();//how to do that without public get_head ??
+
   while(current != NULL)
   {
     out << current->get_data();

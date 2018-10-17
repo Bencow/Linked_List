@@ -2,6 +2,8 @@
 //email : covillebenoit@gmail.com
 //Student number : c3316165
 //Course: SENG1120
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H value
 
 #include "Student.h"
 #include "Node.h"
@@ -67,3 +69,5 @@ public:
 };
 
 ostream& operator<<(ostream& out, const LinkedList& list);
+
+#endif
