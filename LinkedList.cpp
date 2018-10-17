@@ -4,6 +4,7 @@
 //Course: SENG1120
 
 #include "LinkedList.h"
+#include "Node.h"
 #include <iostream>
 
 LinkedList::LinkedList() : head(NULL), tail(NULL), current(NULL), size(0)
@@ -11,28 +12,27 @@ LinkedList::LinkedList() : head(NULL), tail(NULL), current(NULL), size(0)
 
 LinkedList::~LinkedList()
 {
-  if(size == 1)
-  {
-    delete head;
-  }
-  else if(size > 1)
-  {
-    current = head;
-    //Scan the entire list
-    while(current->get_next() != NULL)
-    {
-      //Go forward
-      current = current->get_next();
-      //delete the previous
-      delete current->get_previous();
-    }
-    //delete the last one
-    delete tail;
-  }
-}
+	Node* current = head;
 
-Node* LinkedList::get_head()const
-{ return head; }
+	if(size == 1)
+	{
+		delete head;
+	}
+	else if(size > 1)
+	{
+		//Scan the entire list
+		while(current->get_next() != NULL)
+		{
+			//Go forward
+			current = current->get_next();
+			//delete the previous
+			delete current->get_previous();
+		}
+		//delete the last one
+		delete tail;
+	}
+
+}
 
 int LinkedList::get_size()const
 { return size; }
@@ -48,8 +48,8 @@ bool LinkedList::isEmpty()const
 
 void LinkedList::addToTail(const value_type& entry)
 {
-  //create a new node
-  Node* nd = new Node(entry, head, tail);
+  //make a local copy of the node passed as parameter
+  Node* nd = new Node(entry, head, tail);//initialization of next and previous are useless and confusing here
 
   //if the list is empty
   if(isEmpty())
@@ -71,15 +71,36 @@ void LinkedList::addToTail(const value_type& entry)
     }
 }
 
-void LinkedList::operator +=(const LinkedList& l2)
+void LinkedList::operator +=(const LinkedList& l)
 {
-  Node* current = l2.get_head();//how to do that without public get_head ??
-  while(current != NULL)
-  {
-    addToTail(current->get_data());
-    current = current->get_next();
-  }
+	value_type* newDatas = l.getAllData();
+
+
+	for(int i = 0 ; i < l.get_size() ; ++i)
+	{
+		addToTail(newDatas[i]);
+	}
+	delete[] newDatas;
 }
+//May not be the best solution because imply to copy all the data 2 times 
+//one for the array and one adding the nodes to the next linked list (we need to free the array to not have memory leak)
+//even if there's no real memory leak...
+Node::value_type* LinkedList::getAllData()const
+{
+	Node* current = head;
+	//allocate an array dedicated to store all the data of the linked list
+	value_type* tab = new value_type[size];
+	int i = 0;
+	while(current != NULL)
+	{
+		tab[i] = current->get_data();
+		current = current->get_next();
+		i++;
+	}
+	return tab;
+}
+
+
 
 void LinkedList::remove(std::string name)
 {

@@ -22,7 +22,6 @@ public:
   LinkedList ();
   virtual ~LinkedList ();
 
-  Node* get_head()const;
   int get_size()const;
 
 
@@ -35,6 +34,7 @@ public:
   //Pre condition : constant reference of the "data type" contained in the Node
   //Post condition : A node is created with the data oject provided and add at
   //                 the end of the the list
+  //note : this is a deep copy, this function is making a local copy of the node passed as parameter
   void operator += (const LinkedList& l2);
   //Pre condition : A list
   //Post condition : concatenate the two lists
@@ -66,6 +66,9 @@ public:
   void display_pointer_node(Node* pt);
 
   std::ostream& display(std::ostream& out) const;
+
+  value_type* getAllData()const;
+
 
 
 };
