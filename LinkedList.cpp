@@ -7,18 +7,18 @@
 #include "Node.h"
 #include <iostream>
 
-LinkedList::LinkedList() : head(NULL), tail(NULL), current(NULL), size(0)
+LinkedList::LinkedList() : m_head(NULL), m_tail(NULL), m_size(0)
 {}
 
 LinkedList::~LinkedList()
 {
-	Node* current = head;
+	Node* current = m_head;
 
-	if(size == 1)
+	if(m_size == 1)
 	{
-		delete head;
+		delete m_head;
 	}
-	else if(size > 1)
+	else if(m_size > 1)
 	{
 		//Scan the entire list
 		while(current->get_next() != NULL)
@@ -29,18 +29,18 @@ LinkedList::~LinkedList()
 			delete current->get_previous();
 		}
 		//delete the last one
-		delete tail;
+		delete m_tail;
 	}
 
 }
 
 int LinkedList::get_size()const
-{ return size; }
+{ return m_size; }
 
 bool LinkedList::isEmpty()const
 {
   //To make sure all is well implemented I triple-check
-  if(size == 0 && head == NULL && tail == NULL )
+  if(m_size == 0 && m_head == NULL && m_tail == NULL )
     return true;
   else
     return false;
@@ -48,26 +48,27 @@ bool LinkedList::isEmpty()const
 
 void LinkedList::addToTail(const value_type& entry)
 {
+  Node *current;
   //make a local copy of the node passed as parameter
-  Node* nd = new Node(entry, head, tail);//initialization of next and previous are useless and confusing here
+  Node* nd = new Node(entry);//initialization of next and previous are useless and confusing here
 
   //if the list is empty
   if(isEmpty())
   {
-    head = nd;
-    tail = nd;
-    size++;
+    m_head = nd;
+    m_tail = nd;
+    m_size++;
   }
   else
   {
     //assign current to the last object of the list
-    current = tail;
+    current = m_tail;
 
-    tail = nd;
+    m_tail = nd;
     current->set_next(nd);
     nd->set_previous(current);
     nd->set_next(NULL);
-    size++;
+    m_size++;
     }
 }
 
@@ -87,9 +88,9 @@ void LinkedList::operator +=(const LinkedList& l)
 //even if there's no real memory leak...
 Node::value_type* LinkedList::getAllData()const
 {
-	Node* current = head;
+	Node* current = m_head;
 	//allocate an array dedicated to store all the data of the linked list
-	value_type* tab = new value_type[size];
+	value_type* tab = new value_type[m_size];
 	int i = 0;
 	while(current != NULL)
 	{
@@ -106,7 +107,7 @@ void LinkedList::remove(std::string name)
 {
   bool found = false;
   Node* temp;
-  current = head;
+  Node* current = m_head;
   while (current != NULL)
   {
     temp = current->get_next();
@@ -127,24 +128,24 @@ bool LinkedList::remove_target(Node* target)
       cout << "error, you try to remove a node from an empty list" << endl;
       return false;
   }
-  else if(size == 1)
+  else if(m_size == 1)
   {
     delete target;
-    head = NULL;
-    tail = NULL;
-    size--;
+    m_head = NULL;
+    m_tail = NULL;
+    m_size--;
     return true;
   }
   else //size > 1
   {
-    if(target == head)
+    if(target == m_head)
     {
-      head->get_next()->set_previous(NULL);
-      head = head->get_next();
+      m_head->get_next()->set_previous(NULL);
+      m_head = m_head->get_next();
     }
-    else if(target == tail)
+    else if(target == m_tail)
     {
-      tail = target->get_previous();
+      m_tail = target->get_previous();
       target->get_previous()->set_next(NULL);
     }
     else//Global case : in the middle
@@ -156,7 +157,7 @@ bool LinkedList::remove_target(Node* target)
     delete target;
 
     //target = NULL;
-    size--;
+    m_size--;
     return true;
   }
 }
@@ -167,7 +168,7 @@ bool LinkedList::remove_target(Node* target)
 double LinkedList::calcAverage()
 {
   double sum = 0;
-  current = head;
+  Node* current = m_head;
 
   if(!isEmpty())
   {
@@ -176,7 +177,7 @@ double LinkedList::calcAverage()
       sum += current->get_data().get_score();
       current = current->get_next();
     }
-    return sum/size;
+    return sum/m_size;
   }
   else
   {
@@ -188,7 +189,7 @@ double LinkedList::calcAverage()
 int LinkedList::count(std::string name)
 {
   int occurence = 0;
-  current = head;
+  Node* current = m_head;
   while (current != NULL)
   {
     if(name == current->get_data().get_name())
@@ -202,21 +203,21 @@ int LinkedList::count(std::string name)
 
 void LinkedList::swapNodes(Node* v1, Node* v2)//note : v1 is before v2
 {
-  if(v1 != head)
+  if(v1 != m_head)
   {
     v1->get_previous()->set_next(v2);
   }
-  else//v1 is the head
+  else//v1 is the m_head
   {
-    head = v2;
+    m_head = v2;
   }
-  if(v2 != tail )
+  if(v2 != m_tail )
   {
     v2->get_next()->set_previous(v1);
   }
   else//v2 is the tail
   {
-    tail = v1;
+    m_tail = v1;
   }
 
   Node *prev = v1->get_previous();
@@ -231,11 +232,12 @@ void LinkedList::swapNodes(Node* v1, Node* v2)//note : v1 is before v2
 
 void LinkedList::order()
 {
-  for(int i = 0 ; i < size ; ++i)
+  Node* current;
+  for(uint i = 0 ; i < m_size ; ++i)
   {
-    current = head;
+    current = m_head;
 
-    while(current != tail)
+    while(current != m_tail)
     {
       //if the current node is higher than the next one
       if(current->get_data().get_name() > current->get_next()->get_data().get_name())
@@ -255,7 +257,7 @@ void LinkedList::order()
 
 void LinkedList::display_debug()
 {
-  Node *current_ = head;
+  Node *current_ = m_head;
   while(current_ != NULL)
   {
     display_pointer_node(current_->get_previous());
@@ -281,7 +283,7 @@ void LinkedList::display_pointer_node(Node* pt)
 std::ostream& LinkedList::display(std::ostream& out)const
 {
 	//create a stream
-	Node* current = head;
+	Node* current = m_head;
 	//go through the entire list
 	while(current != NULL)
 	{

@@ -14,6 +14,7 @@ public:
   typedef Student value_type;
   //Constructors and destructor
   Node (const value_type& entry, Node* nxt, Node* prev);
+  Node (const value_type& entry);
   virtual ~Node ();
 
   //Accessors
@@ -25,9 +26,9 @@ public:
 
 
 private:
-  Node* next;
-  Node* previous;
-  value_type data;
+  Node* m_next;
+  Node* m_previous;
+  value_type m_data;
 };
 
 #endif

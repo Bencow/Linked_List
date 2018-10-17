@@ -11,10 +11,9 @@
 class LinkedList
 {
 private:
-  Node* head;
-  Node* tail;
-  Node* current;
-  int size; //Number of node stored in the list
+  Node* m_head;
+  Node* m_tail;
+  uint m_size; //Number of node stored in the list
 
 public:
   typedef Node::value_type value_type;
