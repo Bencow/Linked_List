@@ -65,6 +65,8 @@ public:
   void display_debug();
   void display_pointer_node(Node* pt);
 
+  std::ostream& display(std::ostream& out) const;
+
 
 };
 

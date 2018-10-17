@@ -257,33 +257,24 @@ void LinkedList::display_pointer_node(Node* pt)
   }
 }
 
-/*
-void LinkedList::order1()
+std::ostream& LinkedList::display(std::ostream& out)const
 {
-  Node* min = head;
-  current = head;
-  while(current != tail->get_previous())
-  for(int i = 0 ; i < size ; i++)
-  {
-    for(int j = i ; j < size ; j++)
-    if(min.get_data().get_name() > current)
-      min = current;
-    current = current->next();
-  }
+	//create a stream
+	Node* current = head;
+	//go through the entire list
+	while(current != NULL)
+	{
+		//(add) each node's stream in the final output stream
+		out << current->get_data();
+		current = current->get_next();
+	}
+	//return the stream containing all the nodes' display data
+	return out;
 }
-*/
+
 
 //Non-member fonctions :
 std::ostream& operator<<(std::ostream& out, const LinkedList& list)
 {
-  //Maybe i will have to change this to not use getter for the head, but i don't
-  //know how can i do in another way
-  Node* current = list.get_head();//how to do that without public get_head ??
-
-  while(current != NULL)
-  {
-    out << current->get_data();
-    current = current->get_next();
-  }
-  return out;
+  return list.display(out);
 }
