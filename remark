@@ -1,0 +1,53 @@
+
+
+17 octobre :
+
+		Violation of encapsulation : 
+get_head() method is effectively a problem because you can hae access to the whole list outside the class if you get this pointer
+-> solution : 
+	- operator<< : create a display fucntion which would be called inside the 
+	implementation of the operator<< function
+	warning : i can't do 
+		ostream1 = oustream2;
+	because ostream.operator=() = delete
+	that means that we can't use operator= to copy a ostream object
+
+	- operator += : 
+
+		
+		const qualifier :
+When this qualifier is used at the end of a function in class.h like
+	void display()const;
+this means that the object passed as parameter (this) is const ! in C it'd be
+	void display(const myClass object);
+
+
+
+	
+
+DONE :
+	- Node *current should not be a member of LinkedList :
+Because in const method of a linked list, we should be able to modify the current pointer because it actually doesn't change the content of the list
+-> solution : 
+	create a current pointer in every method of the class which require a current pointer
+
+	- Size of LinkedList should be uint !
+
+	- create a constructeur for Node without next and prev
+	
+	- put m_ in front of all member variables
+
+
+TODO :
+	- Template Node and LinkedList classes
+Note : - the class LinkedList doesn't exist anymore without a type parameter (only LinkedList		<int> dor exemple exists)!
+	   - the template implementation is not a real implementation, the real one is done during the compilation !
+Implementation :
+	- if all in the .h file, everything's good
+
+	- if i want to implement the methods in another file :
+		- #include LinkedList.EXT (.hpp or .template but NOT .cpp !!!) at the end of the .h
+		- Never have any using directive in the implementation file ???
+		- every member function must start with a template header : template<typename T>
+		- only the constructor doesn't change : LinkedList<T>::LinkedList()
+		- makefile include the .h as a SOURCE file !!!
