@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall
 LDFLAGS=
-SOURCES=  LinkedListDemo.cpp LinkedList.cpp Node.cpp Student.cpp 
+SOURCES=  LinkedListDemo.cpp LinkedList.h Node.h Student.cpp 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=assignment1
 

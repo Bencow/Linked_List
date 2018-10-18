@@ -2,22 +2,23 @@
 //email : covillebenoit@gmail.com
 //Student number : c3316165
 //Course: SENG1120
+
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H value
 
 #include "Student.h"
 #include "Node.h"
 
+
+template <typename value_type>
 class LinkedList
 {
 private:
-  Node* m_head;
-  Node* m_tail;
+  Node<value_type>* m_head;
+  Node<value_type>* m_tail;
   uint m_size; //Number of node stored in the list
 
 public:
-  typedef Node::value_type value_type;
-
   LinkedList ();
   virtual ~LinkedList ();
 
@@ -44,7 +45,7 @@ public:
   //                 Then call remove_target for each node found passing a
   //                 pointeur to the node as parameter
 
-  bool remove_target(Node* target);
+  bool remove_target(Node<value_type>* target);
   //Pre condition : pointeur to the node to remove
   //Post condition : delete the node moving the required pointeurs and freeing
   //                 the allocated memory
@@ -58,11 +59,11 @@ public:
   //Post condition : Return the number of student whose name is the input string
 
   void order();
-  void swapNodes(Node* v1, Node* v2);
+  void swapNodes(Node<value_type>* v1, Node<value_type>* v2);
   //Pre condition : v2 must be just after v1
   //Post condition :
   void display_debug();
-  void display_pointer_node(Node* pt);
+  void display_pointer_node(Node<value_type>* pt);
 
   std::ostream& display(std::ostream& out) const;
 
@@ -71,7 +72,9 @@ public:
 
 
 };
+template <typename value_type>
+ostream& operator<<(ostream& out, const LinkedList<value_type>& list);
 
-ostream& operator<<(ostream& out, const LinkedList& list);
+#include "LinkedList.hpp"
 
 #endif

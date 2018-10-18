@@ -12,7 +12,8 @@
 #include "Student.h"
 using namespace std;
 
-void initialize(LinkedList &l1, LinkedList &l2)
+
+void initialize(LinkedList<Student> &l1, LinkedList<Student> &l2)
 {
     Student c("Alex", 15);
     l1.addToTail(c);
@@ -41,8 +42,8 @@ void initialize(LinkedList &l1, LinkedList &l2)
 
 int main()
 {
-    LinkedList firstList;
-	LinkedList secondList;
+    LinkedList<Student> firstList;
+	LinkedList<Student> secondList;
 	
 	initialize(firstList, secondList);
 
